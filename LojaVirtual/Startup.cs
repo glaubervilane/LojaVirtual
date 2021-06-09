@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using LojaVirtual.Repositories.Contracts;
 using LojaVirtual.Repositories;
+using LojaVirtual.Libraries.Sessao;
+using LojaVirtual.Libraries.Login;
 
 namespace LojaVirtual
 {
@@ -27,10 +29,21 @@ namespace LojaVirtual
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
 
+            services.AddMemoryCache();
+
             services.AddControllersWithViews();
+            services.AddSession(options =>
+            {
+                
+            });
+
+            services.AddScoped<Sessao>();
+            services.AddScoped<LoginCliente>();
 
             string connection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LojaVirtual;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -55,6 +68,7 @@ namespace LojaVirtual
             app.UseStaticFiles();          
             app.UseCookiePolicy();
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 
