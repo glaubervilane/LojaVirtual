@@ -33,6 +33,7 @@ namespace LojaVirtual
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
+            services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
 
             services.AddMemoryCache();
 
@@ -44,6 +45,7 @@ namespace LojaVirtual
 
             services.AddScoped<Sessao>();
             services.AddScoped<LoginCliente>();
+            services.AddScoped<LoginColaborador>();
 
             string connection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LojaVirtual;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -74,6 +76,10 @@ namespace LojaVirtual
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
