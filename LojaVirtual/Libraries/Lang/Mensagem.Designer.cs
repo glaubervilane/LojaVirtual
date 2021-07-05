@@ -97,11 +97,29 @@ namespace LojaVirtual.Libraries.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to O valor do campo {0} nao confere com o valor do campo {1}.
         /// </summary>
         public static string MSG_E005 {
             get {
                 return ResourceManager.GetString("MSG_E005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registro salvo com sucesso!.
+        /// </summary>
+        public static string MSG_S001 {
+            get {
+                return ResourceManager.GetString("MSG_S001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registro excluido com sucesso!.
+        /// </summary>
+        public static string MSG_S002 {
+            get {
+                return ResourceManager.GetString("MSG_S002", resourceCulture);
             }
         }
     }
