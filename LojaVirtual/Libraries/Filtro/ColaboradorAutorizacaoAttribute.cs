@@ -8,6 +8,11 @@ namespace LojaVirtual.Libraries.Filtro
 {
     public class ColaboradorAutorizacaoAttribute : Attribute, IAuthorizationFilter
     {
+        private string _tipoColaboradorAutorizado;
+        public ColaboradorAutorizacaoAttribute(string TipoColaboradorAutorizado = "C")
+        {
+            _tipoColaboradorAutorizado = TipoColaboradorAutorizado;
+        }
         LoginColaborador _loginColaborador;
         public void OnAuthorization(AuthorizationFilterContext context)
         {
@@ -17,10 +22,13 @@ namespace LojaVirtual.Libraries.Filtro
             {
                 context.Result = new RedirectToActionResult("Login", "Home", null);
             }
-            /*else
+            else
             {
-                context.Result = new ContentResult() { Content = " Usuario " + colaborador.Id + ". Email: " + colaborador.Email + " Idade: " + DateTime.Now.AddYears(-colaborador.Nascimento.Year).ToString("yy") + ". Logado!" };
-            }*/
+                if (colaborador.Tipo == "C" && _tipoColaboradorAutorizado == "G")
+                {
+                    context.Result = new ForbidResult();
+                }
+            }
         }
     }
 }
